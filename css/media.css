@@ -1,0 +1,436 @@
+@media (max-width: 380px) {
+    .container{
+        width: 100%;
+    }
+    .sidebar-left {
+        position: fixed !important;
+        padding-top: 20px;
+        transition: 5s;
+        height: 100vh !important;
+        overflow-y: scroll;
+        z-index: 1;
+    }
+    .sidebar-left-1{
+        transition: .5s;
+    }
+    
+    .click-side-bar{
+        transition: .5s;
+    }
+    
+    .click-side-bar2 {
+        transition: .5s;
+    }
+    .click-side-bar3{
+        transition: .5s;
+    }
+
+    .click-side-bar2 {
+        display: block !important;
+        --sidebar-left-width: 300px;
+    }
+
+    .main-container.left-width {
+        --sidebar-left-width: 0px;
+    }
+
+    .sidebar-left {
+        display: none;
+    }
+
+    :root {
+        --sidebar-left-width: 0px;
+    }
+
+    .finlab-2 {
+        display: none;
+    }
+    .item-list{
+        width: 35px;
+        height: 35px;
+    }
+    .fram-2{
+        width: 35px !important;
+        height: 35px !important;
+    }
+    header{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .week-box{
+        width: 50%;
+    }
+    .pad-xxs-0{
+        padding: 0 !important;
+    }
+    .jc-between{
+        justify-content: space-between;
+    }
+    .ps-xxs-2{
+        padding-left: 10px;
+    }
+    .upgrade-img{
+        width: 100% !important;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .col-xxs-12{
+        width: 100% !important;
+    }
+    .jc-st{
+        justify-content: start !important;
+    }
+    .mt-xxs-2{
+        margin-top: 10px;
+    }
+    .slick-next.slick-arrow{
+        left: 87.7%;
+    }
+    .slick-prev.slick-arrow{
+        left: 70%;
+    }
+    #pieChart .apexcharts-canvas {
+        margin: 0 auto;
+    }
+
+    .fs-7 {
+        font-size: 12px;
+    }
+    .fo-copy{
+        font-size: 10px ;
+    }
+    .px-xxs-2{
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
+
+@media (min-width: 381px) {
+    :root {
+        --sidebar-right-width: 0px;
+    }
+    .upgrade-img{
+        width: auto !important;
+    }
+    .xs-col{
+        width: 200px !important;
+    }
+
+    .sidebar-left {
+        position: fixed !important;
+        padding-top: 20px;
+        transition: 5s;
+        height: 100vh !important;
+        overflow-y: scroll;
+        z-index: 1;
+    }
+    .sidebar-left-1{
+        transition: .5s;
+    }
+    
+    .click-side-bar{
+        transition: .5s;
+    }
+    
+    .click-side-bar2 {
+        transition: .5s;
+    }
+    .click-side-bar3{
+        transition: .5s;
+    }
+
+    .click-side-bar2 {
+        display: block !important;
+        --sidebar-left-width: 300px;
+    }
+
+    .main-container.left-width {
+        --sidebar-left-width: 0px;
+    }
+
+    .sidebar-left {
+        display: none;
+    }
+
+    :root {
+        --sidebar-left-width: 0px;
+    }
+
+    .finlab-2 {
+        display: none;
+    }
+
+    #pieChart .apexcharts-canvas {
+        margin: 0 auto;
+    }
+
+    .chart-3-text span {
+        font-size: 14px;
+    }
+
+    .slick-next.slick-arrow {
+        left: 80%;
+    }
+
+    .container-fluid {
+        padding: 0 15px !important;
+    }
+
+    .col-12.p-4.rounded.head-bg {
+        margin-top: 10px;
+    }
+
+    .logo-abbr {
+        width: 31px;
+        height: 31px;
+    }
+
+    .fs-xs-1 {
+        font-size: 14px;
+    }
+
+    .fs-xs-2 {
+        font-size: 18px;
+    }
+
+    #chartBarRunning {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .fs-7 {
+        font-size: 13px;
+    }
+
+}
+
+
+@media (min-width: 576px) {
+    .sidebar-left {
+        position: absolute !important;
+    }
+
+    .click-side-bar2 {
+        display: block !important;
+        --sidebar-left-width: 300px;
+    }
+
+    .main-container.left-width {
+        --sidebar-left-width: 0px;
+    }
+
+    .sidebar-left {
+        display: none;
+    }
+
+    :root {
+        --sidebar-left-width: 0px;
+    }
+
+    .finlab-2 {
+        display: none;
+    }
+
+   
+
+    .fs-xs-1 {
+        font-size: 19px;
+    }
+
+    .fs-xs-2 {
+        font-size: 20px;
+    }
+
+    .fs-sm-2 {
+        font-size: 22px !important;
+        font-weight: 600;
+    }
+
+    #pieChart .apexcharts-canvas {
+        margin: 0 auto;
+    }
+
+    .slick-next.slick-arrow {
+        left: 94.3%;
+    }
+
+    .slick-prev.slick-arrow {
+        left: 86%;
+    }
+
+    .sidebar-left {
+        padding-top: 20px;
+        transition: 5s;
+        height: 100vh !important;
+        overflow-y: scroll;
+        z-index: 1;
+    }
+    header{
+        padding-left: 12px;
+    }
+}
+
+
+@media (min-width: 768px) {
+
+    .sidebar-left {
+        display: block;
+        position: fixed !important;
+        transition: .8s;
+    }
+
+    .click-side-bar {
+        transition: .5s;
+    }
+
+    .click-side-bar button {
+        width: 50px;
+    }
+
+    .click-side-bar button i {
+        text-align: center;
+    }
+
+    .click-side-bar button span {
+        display: none;
+    }
+
+    .click-side-bar button::after {
+        display: none;
+    }
+
+    .click-side-bar button .col-1 {
+        width: 100% !important;
+    }
+
+    .click-side-bar .accordian-left {
+        position: absolute;
+        left: 101%;
+        z-index: 111;
+        background-color: #2D2D37;
+        top: 6px;
+        border-radius: 10px;
+    }
+
+    .click-side-bar .accordian-left .accordion-body ul {
+        padding-left: 0 !important;
+        padding: 0 15px !important;
+    }
+
+    .click-side-bar .side-left-box {
+        display: none !important;
+    }
+
+    :root {
+        --sidebar-left-width: 90px;
+    }
+    .slick-next.slick-arrow{
+        left: 94%;
+    }
+    .slick-prev.slick-arrow{
+        left: 87%;
+    }
+}
+
+
+@media (min-width: 992px) {
+
+    .click-side-bar{
+        width: 90px;
+    }
+    :root {
+        --sidebar-left-width: 300px;
+    }
+    .main-container.left-width {
+        --sidebar-left-width: 90px;
+    }
+    .date-text span{
+        font-size: 12px;
+    }
+    .chart-3-text{
+        font-size: 13px;
+    }
+    .slick-next.slick-arrow{
+        left: 94.5%;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .date-text span{
+        font-size: 14px;
+    }
+    .fs-7{
+        font-size: 12px;
+    }
+    .slick-next.slick-arrow{
+        left: 95.5%;
+    }
+    .slick-prev.slick-arrow{
+        left: 89.5%;
+    }
+}
+
+@media (min-width: 1400px) {
+    /* :root{
+        --sidebar-right-width: 0px;
+    } */
+}
+
+@media (min-width: 1700px) {
+
+    :root {
+        --sidebar-right-width: 360px;
+    }
+
+    .d-xxxl-block {
+        display: block !important;
+    }
+
+    .sidebar-right {
+        width: var(--sidebar-right-width);
+        --bs-danger-rgb: 45, 45, 55;
+        --bs-warning-rgb: 1, 163, 255;
+        --bs-info-rgb: 255, 255, 255;
+        --bs-link-color-rgb: 255, 255, 255;
+        --bs-link-hover-color-rgb: 1, 163, 255;
+        --bs-light-rgb: 255, 255, 255;
+        --primary: #01A3FF;
+        border-top-left-radius: 2.5rem;
+        border-bottom-left-radius: 2.5rem;
+    }
+    
+    header{
+        padding-right: var(--sidebar-right-width) !important;
+        padding-left: 10px;
+    }
+    .col-xxxl-1{
+        width: 8.33% !important;
+    }
+    .col-xxxl-6{
+        width: 50% !important;
+    }
+    .col-xxxl-7 {
+        width: 58.33% !important;
+    }
+    .col-xxxl-12{
+        width: 100% !important;
+    }
+    .ff .finlab{
+        margin-left: 0 !important;
+    }
+    .me-xxxl-2{
+        margin-right: 1em;
+    }
+    .column-2{
+        width: 8.33%;
+    }
+    .search-column{
+        width: 100%;
+    }
+    .slick-next.slick-arrow{
+        left: 95.5%;
+    }
+    .slick-prev.slick-arrow{
+        left: 90%;
+    }
+}
