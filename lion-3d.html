@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Lion</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+        }
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            padding: 15px 30px;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">🦁 3D Lion Model</div>
+    <div id="controls">
+        Use mouse to rotate • Scroll to zoom
+    </div>
+    <div id="canvas-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x667eea);
+        scene.fog = new THREE.Fog(0x667eea, 10, 50);
+
+        // Camera setup
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.set(0, 2, 8);
+
+        // Renderer setup
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 10, 5);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 2048;
+        directionalLight.shadow.mapSize.height = 2048;
+        scene.add(directionalLight);
+
+        const pointLight = new THREE.PointLight(0xffa500, 0.5);
+        pointLight.position.set(-5, 5, -5);
+        scene.add(pointLight);
+
+        // Ground
+        const groundGeometry = new THREE.CircleGeometry(15, 32);
+        const groundMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0x8b7355,
+            roughness: 0.8,
+            metalness: 0.2
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -2;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        // Create Lion
+        function createLion() {
+            const lionGroup = new THREE.Group();
+
+            // Body
+            const bodyGeometry = new THREE.SphereGeometry(1.2, 32, 32);
+            const bodyMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xd4a574,
+                roughness: 0.7,
+                metalness: 0.1
+            });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.scale.set(1.5, 1, 1);
+            body.castShadow = true;
+            body.receiveShadow = true;
+            lionGroup.add(body);
+
+            // Head
+            const headGeometry = new THREE.SphereGeometry(0.8, 32, 32);
+            const headMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xd4a574,
+                roughness: 0.7,
+                metalness: 0.1
+            });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            head.position.set(0, 0.5, 1.5);
+            head.castShadow = true;
+            head.receiveShadow = true;
+            lionGroup.add(head);
+
+            // Mane
+            const maneGeometry = new THREE.SphereGeometry(1.2, 32, 32);
+            const maneMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x8b4513,
+                roughness: 0.9,
+                metalness: 0
+            });
+            const mane = new THREE.Mesh(maneGeometry, maneMaterial);
+            mane.position.set(0, 0.3, 1.2);
+            mane.scale.set(1.1, 1, 1.1);
+            mane.castShadow = true;
+            lionGroup.add(mane);
+
+            // Mane spikes (for more realistic look)
+            for (let i = 0; i < 20; i++) {
+                const angle = (i / 20) * Math.PI * 2;
+                const spikeGeometry = new THREE.ConeGeometry(0.15, 0.6, 8);
+                const spike = new THREE.Mesh(spikeGeometry, maneMaterial);
+                const radius = 1.1;
+                spike.position.set(
+                    Math.cos(angle) * radius,
+                    0.3 + Math.random() * 0.3,
+                    1.2 + Math.sin(angle) * radius
+                );
+                spike.rotation.z = angle;
+                spike.rotation.x = Math.PI / 4;
+                spike.castShadow = true;
+                lionGroup.add(spike);
+            }
+
+            // Snout
+            const snoutGeometry = new THREE.SphereGeometry(0.4, 32, 32);
+            const snout = new THREE.Mesh(snoutGeometry, headMaterial);
+            snout.position.set(0, 0.2, 2.1);
+            snout.scale.set(0.8, 0.6, 1);
+            snout.castShadow = true;
+            lionGroup.add(snout);
+
+            // Nose
+            const noseGeometry = new THREE.SphereGeometry(0.15, 16, 16);
+            const noseMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x2c1810,
+                roughness: 0.5
+            });
+            const nose = new THREE.Mesh(noseGeometry, noseMaterial);
+            nose.position.set(0, 0.3, 2.5);
+            nose.castShadow = true;
+            lionGroup.add(nose);
+
+            // Eyes
+            const eyeGeometry = new THREE.SphereGeometry(0.12, 16, 16);
+            const eyeMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xffff00,
+                emissive: 0xffff00,
+                emissiveIntensity: 0.3
+            });
+            
+            const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            leftEye.position.set(-0.3, 0.7, 2);
+            lionGroup.add(leftEye);
+
+            const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            rightEye.position.set(0.3, 0.7, 2);
+            lionGroup.add(rightEye);
+
+            // Pupils
+            const pupilGeometry = new THREE.SphereGeometry(0.06, 16, 16);
+            const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
+            
+            const leftPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+            leftPupil.position.set(-0.3, 0.7, 2.12);
+            lionGroup.add(leftPupil);
+
+            const rightPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+            rightPupil.position.set(0.3, 0.7, 2.12);
+            lionGroup.add(rightPupil);
+
+            // Ears
+            const earGeometry = new THREE.ConeGeometry(0.25, 0.4, 16);
+            const leftEar = new THREE.Mesh(earGeometry, headMaterial);
+            leftEar.position.set(-0.6, 1.1, 1.3);
+            leftEar.rotation.z = -Math.PI / 6;
+            leftEar.castShadow = true;
+            lionGroup.add(leftEar);
+
+            const rightEar = new THREE.Mesh(earGeometry, headMaterial);
+            rightEar.position.set(0.6, 1.1, 1.3);
+            rightEar.rotation.z = Math.PI / 6;
+            rightEar.castShadow = true;
+            lionGroup.add(rightEar);
+
+            // Legs
+            const legGeometry = new THREE.CylinderGeometry(0.25, 0.2, 1.2, 16);
+            const legMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xd4a574,
+                roughness: 0.7
+            });
+
+            // Front legs
+            const frontLeftLeg = new THREE.Mesh(legGeometry, legMaterial);
+            frontLeftLeg.position.set(-0.7, -1.1, 0.8);
+            frontLeftLeg.castShadow = true;
+            lionGroup.add(frontLeftLeg);
+
+            const frontRightLeg = new THREE.Mesh(legGeometry, legMaterial);
+            frontRightLeg.position.set(0.7, -1.1, 0.8);
+            frontRightLeg.castShadow = true;
+            lionGroup.add(frontRightLeg);
+
+            // Back legs
+            const backLeftLeg = new THREE.Mesh(legGeometry, legMaterial);
+            backLeftLeg.position.set(-0.7, -1.1, -0.8);
+            backLeftLeg.castShadow = true;
+            lionGroup.add(backLeftLeg);
+
+            const backRightLeg = new THREE.Mesh(legGeometry, legMaterial);
+            backRightLeg.position.set(0.7, -1.1, -0.8);
+            backRightLeg.castShadow = true;
+            lionGroup.add(backRightLeg);
+
+            // Paws
+            const pawGeometry = new THREE.SphereGeometry(0.25, 16, 16);
+            const pawMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xc49563,
+                roughness: 0.8
+            });
+
+            const paws = [
+                { x: -0.7, z: 0.8 },
+                { x: 0.7, z: 0.8 },
+                { x: -0.7, z: -0.8 },
+                { x: 0.7, z: -0.8 }
+            ];
+
+            paws.forEach(pos => {
+                const paw = new THREE.Mesh(pawGeometry, pawMaterial);
+                paw.position.set(pos.x, -1.8, pos.z);
+                paw.scale.set(1, 0.6, 1);
+                paw.castShadow = true;
+                lionGroup.add(paw);
+            });
+
+            // Tail
+            const tailCurve = new THREE.CatmullRomCurve3([
+                new THREE.Vector3(-1.5, 0, 0),
+                new THREE.Vector3(-2, 0.5, 0),
+                new THREE.Vector3(-2.3, 1, 0.2),
+                new THREE.Vector3(-2.5, 1.5, 0)
+            ]);
+
+            const tailGeometry = new THREE.TubeGeometry(tailCurve, 20, 0.15, 8, false);
+            const tailMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xd4a574,
+                roughness: 0.7
+            });
+            const tail = new THREE.Mesh(tailGeometry, tailMaterial);
+            tail.castShadow = true;
+            lionGroup.add(tail);
+
+            // Tail tuft
+            const tuftGeometry = new THREE.SphereGeometry(0.3, 16, 16);
+            const tuftMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x8b4513,
+                roughness: 0.9
+            });
+            const tuft = new THREE.Mesh(tuftGeometry, tuftMaterial);
+            tuft.position.set(-2.5, 1.5, 0);
+            tuft.castShadow = true;
+            lionGroup.add(tuft);
+
+            return lionGroup;
+        }
+
+        const lion = createLion();
+        scene.add(lion);
+
+        // Mouse interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetRotationX = 0;
+        let targetRotationY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            targetRotationY = mouseX * Math.PI;
+            targetRotationX = mouseY * 0.5;
+        });
+
+        // Zoom with mouse wheel
+        document.addEventListener('wheel', (event) => {
+            camera.position.z += event.deltaY * 0.01;
+            camera.position.z = Math.max(4, Math.min(15, camera.position.z));
+        });
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Smooth rotation
+            lion.rotation.y += (targetRotationY - lion.rotation.y) * 0.05;
+            lion.rotation.x += (targetRotationX - lion.rotation.x) * 0.05;
+
+            // Gentle floating animation
+            lion.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+
+            // Rotate the lion slowly
+            lion.rotation.y += 0.005;
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Start animation
+        animate();
+    </script>
+</body>
+</html>
